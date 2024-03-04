@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.WebsiteConfig.website,
+    'website',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +79,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dcrm',
         'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': 'HP1nv3nt'
+        'USER': 'sqldba',
+        'PASSWORD': 'HP1nv3nt@2209',
         'PORT': '3306'
     }
 }
