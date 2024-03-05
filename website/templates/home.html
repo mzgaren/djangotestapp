@@ -4,7 +4,42 @@
 
 {% if user.is_authenticated %}
 
-<h1> Hello there ! </h1>
+<h1> List of Reports Submitted  </h1>
+
+{% if reports %}
+
+<table class="table" class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">User Name</th>
+        <th scope="col">Partenaire Name</th>
+        <th scope="col">Heure Effectuer Partenaire</th>
+        <th scope="col">Heure Effectuer user</th>
+        <th scope="col">Description</th>
+        <th scope="col">At</th>
+        <th scope="col">ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.user_name }} </td>   
+            <td>{{ report.partner_name}}</td>
+            <td>{{ report.hours_worked1_partner_user }}</td>
+            <td>{{ report.hours_worked_main_user }}</td>
+            <td>{{ report.description }}</td>
+            <td>{{ report.created_at }}</td>
+            <td> <a href="{% url 'report' report.id %}"> {{ report.id }} </a></td>
+        
+        </tr>
+    {% endfor %}
+
+{% endif %}
+      
+    </tbody>
+  </table>
+
 
 {% else %}
 <div class="col-md-6 offset-md-3">
