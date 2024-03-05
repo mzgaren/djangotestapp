@@ -1,21 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'dashboard.html' %}
+
 {% block content %}
 
 
 
-<div class="card">
-  <div class="card-header"><strong>
-    	{{ employee_report.user_name }} 
+<div class="card opacity-100 ">
+  <div class="card-header   "><strong>
+    	{{ employee_report.user_name }}  & 
+        
 		{{ employee_report.partner_name }}</strong>
   </div>
-  <div class="card-body">
+  <div class="card-body  ">
 
 
 
-<p class="card-text">
+<p class="card-text  ">
 <strong>Heure Effectuer Parteneur: </strong>{{ employee_report.hours_worked1_partner_user }}</p>
 
-<p class="card-text">
+<p class="card-text  ">
 <strong>Heure Effectuer User: </strong>{{ employee_report.hours_worked_main_user }}
 </p>
 
@@ -42,7 +44,7 @@
 </div>
 
 <br/><br/>
-<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+<a href="{% url 'index' %}" class="btn btn-secondary">Back</a>
 
 <a href="{% url 'delete_report' employee_report.id %}" class="btn btn-danger">Delete</a>
 

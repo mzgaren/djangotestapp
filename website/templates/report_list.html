@@ -1,0 +1,68 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+  
+    {% if user.is_authenticated %}
+    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+    
+    <h2>List of Reports Submitted</h2>
+    {% if reports %}
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Employer</th>
+            <th scope="col">Partenaire</th>
+            <th scope="col">Heure Effectuer Partenaire</th>
+            <th scope="col">Heure Effectuer user</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date</th>
+            <th scope="col">ID</th>
+          </tr>
+        </thead>
+        <tbody class="opacity-50 text-white ">
+    
+          {% for report in reports %}
+          <tr>
+              <td>{{ report.user_name }} </td>   
+              <td>{{ report.partner_name}}</td>
+              <td>{{ report.hours_worked1_partner_user }}</td>
+              <td>{{ report.hours_worked_main_user }}</td>
+              <td>{{ report.description }}</td>
+              <td>{{ report.created_at }}</td>
+              <td> <a href="{% url 'report' report.id %}"> {{ report.id }} </a></td>
+          
+          </tr>
+      {% endfor %}
+  
+  {% endif %}
+    {% else %}
+
+    <div class="col-md-6 offset-md-3">
+      <h1> Login </h1>
+      
+      <form method="POST" action="{% url 'index'%}">
+          {% csrf_token %}
+          <form>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="username" placeholder="Username" required>
+                </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" name="password" placeholder="password" required>
+              </div>
+               <button type="submit" class="btn btn-secondary">Login</button>
+            </form>
+      
+      </form>
+      
+      </div>
+
+    {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</div>
+{% endblock %}

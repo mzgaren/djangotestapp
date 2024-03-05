@@ -30,14 +30,13 @@
     
     <!-- Custom styles for this template -->
     <!-- <link rel="stylesheet" type="text/css" href="{% static 'website/main.css' %}"> -->
-  <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet"> 
+     <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet"> 
   </head>
   <body>
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     {% include 'navbar.html' %}
   </header>
-  <section id="hero" class="d-flex align-items-center justify-content-center">
- 
+   
 <div class="container-fluid">
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -115,84 +114,31 @@
         </ul>
       </div>
     </nav>
-    {% if user.is_authenticated %}
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
-        </div>
-      </div>
-      
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-      
-      <h2>List of Reports Submitted</h2>
-      {% if reports %}
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Employer</th>
-              <th scope="col">Partenaire</th>
-              <th scope="col">Heure Effectuer Partenaire</th>
-              <th scope="col">Heure Effectuer user</th>
-              <th scope="col">Description</th>
-              <th scope="col">Date</th>
-              <th scope="col">ID</th>
-            </tr>
-          </thead>
-          <tbody class="opacity-50 text-white ">
-      
-            {% for report in reports %}
-            <tr>
-                <td>{{ report.user_name }} </td>   
-                <td>{{ report.partner_name}}</td>
-                <td>{{ report.hours_worked1_partner_user }}</td>
-                <td>{{ report.hours_worked_main_user }}</td>
-                <td>{{ report.description }}</td>
-                <td>{{ report.created_at }}</td>
-                <td> <a href="{% url 'report' report.id %}"> {{ report.id }} </a></td>
-            
-            </tr>
-        {% endfor %}
-    
-    {% endif %}
-      {% else %}
-
-      <div class="col-md-6 offset-md-3">
-        <h1> Login </h1>
-        
-        <form method="POST" action="{% url 'index'%}">
-            {% csrf_token %}
-            <form>
-                <div class="mb-3">
-                  <input type="text" class="form-control" name="username" placeholder="Username" required>
-                  </div>
-                <div class="mb-3">
-                  <input type="password" class="form-control" name="password" placeholder="password" required>
-                </div>
-                 <button type="submit" class="btn btn-secondary">Login</button>
-              </form>
-        
-        </form>
-        
-        </div>
-
-      {% endif %}
-          </tbody>
-        </table>
-      </div>
+     </div>
     </main>
   </div>
 </div>
-</section>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div>
+
+   {% if messages %}
+     {% for message in messages %}
+     <div class="alert alert-warning alert-dismissible fade show" role="alert">
+       {{ message }} 
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+     </div>
+      
+      {% endfor %}
+   {% endif %}
+  
+   <br>
+    {% block content %} 
+    
+    {% endblock %}
+  </div>
+</main>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

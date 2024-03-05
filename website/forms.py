@@ -26,7 +26,7 @@ class SignUpForm(UserCreationForm):
 
 class AddReportForm(forms.ModelForm):
     user_name = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"User Name", "class":"form-control"}), label="")
-    partner_name = forms.MultipleChoiceField(required=True, choices=PARTNER_NAME_CHOICES, widget=forms.CheckboxSelectMultiple)
+    partner_name = forms.MultipleChoiceField(required=True, choices=PARTNER_NAME_CHOICES, widget=forms.RadioSelect)
     #partner_name = forms.MultipleChoiceField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Partner Name", "class":"form-control"}), label="")
     hours_worked1_partner_user = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Heure travailler", "class":"form-control"}), label="")
     hours_worked_main_user = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Heure travailler", "class":"form-control"}), label="")
@@ -38,3 +38,4 @@ class AddReportForm(forms.ModelForm):
     class Meta:
         model = Report
         exclude = ("user_name",)
+        fields = ('partner_name', 'hours_worked1_partner_user', 'hours_worked_main_user', 'number_of_spots', 'number_of_boitier', 'description')

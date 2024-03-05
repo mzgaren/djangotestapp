@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'dashboard.html' %}
 
 {% block content %}
 
@@ -18,8 +18,9 @@
 			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		{% endif %}
-        
+
     {{ form.as_p }}
+
     <br/>
     <button type="submit" class="btn btn-secondary">Register</button>
 </form>

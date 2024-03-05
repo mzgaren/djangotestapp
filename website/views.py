@@ -7,11 +7,7 @@ from .models import Report
 
 
 def index(request):
-    return render(request, 'index.html', {})
-
-def home(request):
     reports = Report.objects.all()
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -19,18 +15,23 @@ def home(request):
         if user is not None:
             login(request, user)
             messages.success(request, "You have been logged in !")
-            return redirect('home')
+            return redirect('index')
         else:
             messages.success(request, "There was an error logging in please try again ")
-            return redirect('home')
+            return redirect('index')
     else:
-        return render(request, 'home.html', {'reports': reports})
+        return render(request, 'index.html', {'reports': reports})
+    #return render(request, 'index.html', {})
+
+def home(request):
+    reports = Report.objects.all()
+    return render(request, 'report_list.html', {'reports': reports})
 
 
 def logout_user(request):
     logout(request)
     messages.success(request, "you have been logged out ! ")
-    return redirect('home')
+    return redirect('index')
 
 def register_user(request):
     if request.method == 'POST':
@@ -42,7 +43,7 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, "you have been loged In")
-            return redirect('home')
+            return redirect('index')
     else:
         form = SignUpForm()
         return render(request, 'register.html', {'form': form})
@@ -54,7 +55,7 @@ def employee_report(request, pk):
         return render(request, 'report.html', {'employee_report': employee_report})
     else:
         messages.success(request, "you must Be logged In to view reports")
-        return redirect('home')
+        return redirect('index')
 
 
 def delete_report(request, pk):
@@ -62,10 +63,10 @@ def delete_report(request, pk):
         delete_it = Report.objects.get(id=pk)
         delete_it.delete()
         messages.success(request, "Report has been deleted !")
-        return redirect('home')
+        return redirect('index')
     else:
         messages.success(request, "You must be logged in to delete reports")
-        return redirect('home')
+        return redirect('index')
 
 
 def add_report(request):
@@ -81,7 +82,7 @@ def add_report(request):
         return render(request, 'add_report.html', {'form': form})
     else:
         messages.success(request, "You must be logged in to delete reports")
-        return redirect('home')
+        return redirect('index')
 
 def update_report(request, pk):
     form = AddReportForm(request.POST)
@@ -91,8 +92,8 @@ def update_report(request, pk):
         if form.is_valid():
                 form.save()
                 messages.success(request, "Report Updated successfuly ! ")
-                return redirect('home')
+                return redirect('index')
         return render(request, 'update_report.html', {'form': form })
     else:
         messages.success(request, "You must be logged in to delete reports")
-        return redirect('home')
+        return redirect('index')
