@@ -38,5 +38,8 @@ class Product(models.Model):
     item = models.CharField(max_length=50)
     mark = models.CharField(max_length=50)
     description = models.TextField(max_length=200)
+    image_url = models.CharField(max_length=2083, default="")
+
+
 
 

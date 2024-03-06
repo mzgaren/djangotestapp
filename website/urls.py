@@ -7,7 +7,7 @@ urlpatterns = [
     path('report/', views.home, name='report_list'),
     path('', views.index, name='index'),
     path('logout/', views.logout_user, name='logout'),
-    #path('stats/', views.stats, name='statistics'),
+    path('product/', views.product, name='product'),
     path('api/chart/data', ChartData.as_view()),
     path('register/', views.register_user, name='register'),
     path('reports/<int:pk>', views.employee_report, name='report'),

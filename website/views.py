@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib import messages
 from .forms import SignUpForm, AddReportForm
-from .models import Report
+from .models import Report, Product
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # Create your views here.
 User = get_user_model()
+
+def product(request):
+    products = Product.objects.all()
+    return render(request, 'product.html', {'products': products})
 
 class ChartData(APIView):
     """
@@ -39,9 +43,6 @@ class ChartData(APIView):
              }
         return Response(data)
 
-def stats(request):
-    return render(request, 'stats.html', {})
-
 def index(request):
     reports = Report.objects.all()
     if request.method == 'POST':
@@ -57,7 +58,7 @@ def index(request):
             return redirect('index')
     else:
         return render(request, 'index.html', {'reports': reports})
-    #return render(request, 'index.html', {})
+    
 
 def home(request):
     reports = Report.objects.all()
