@@ -5,7 +5,7 @@ class Report(models.Model):
     user_name = models.CharField(max_length=50)
     partner_name = models.CharField(max_length=50)
     hours_worked1_partner_user = models.DecimalField(max_digits=50, decimal_places=6, default=0)
-    hours_worked_main_user = models.DecimalField(max_digits=50, decimal_places=6, default=0)
+    hours_worked_main_user = models.IntegerField()
     number_of_spots = models.DecimalField(max_digits=50, decimal_places=6, default=0)
     number_of_boitier = models.DecimalField(max_digits=50, decimal_places=6, default=0)
     raccordement = models.DecimalField(max_digits=50, decimal_places=6, default=0)

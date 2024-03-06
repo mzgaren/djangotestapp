@@ -1,10 +1,46 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib import messages
 from .forms import SignUpForm, AddReportForm
 from .models import Report
-# Create your views here.
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
+# Create your views here.
+User = get_user_model()
+
+class ChartData(APIView):
+    """
+    View to list all users in the system.
+
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        
+
+        report = Report.objects.all()
+        
+        #qs_count = User.objects.all().count()
+        #labels = ['Users', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+        #default_items = [qs_count, 23, 12, 2, 10]
+        #usernames = [user.username for user in User.objects.all()]
+        labels = [dp.user_name for dp in report]
+        default_items = [dp.hours_worked_main_user for dp in report]
+        data = {
+            "labels": labels,
+            "default": default_items,
+             }
+        return Response(data)
+
+def stats(request):
+    return render(request, 'stats.html', {})
 
 def index(request):
     reports = Report.objects.all()
@@ -50,6 +86,7 @@ def register_user(request):
 
 
 def employee_report(request, pk):
+
     if request.user.is_authenticated:
         employee_report = Report.objects.get(id=pk)
         return render(request, 'report.html', {'employee_report': employee_report})
